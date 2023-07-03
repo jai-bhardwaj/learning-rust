@@ -11,13 +11,16 @@ fn main() {
         prnt_ln!("Please input your guess.");
         
         let mut guess = String::new();  // mutable variable
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
+        match io::stdin()
+            .read_line(&mut guess) 
+                {
+                    Ok(_) => println!(""),
+                    Err(e) => prnt_ln!("Error reading input {}",e),
+                };
 
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => num,
-            Err(_) => continue,
+            Err(_) => {red_ln!("You entered wrong input"); continue},
         };
         prnt_ln!("You guessed: {guess}");
         if guess == secret_number {
